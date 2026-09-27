@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# После публикации укажите абсолютный URL карты сайта:
+Sitemap: https://zqaqzqaqsasha.github.io/sitemap.xml
