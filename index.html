@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#1746d1">
   <link rel="canonical" href="https://zqaqzqaqsasha.github.io/resume/">
   <link rel="icon" type="image/svg+xml" href="./assets/images/favicon.svg">
-  <link rel="stylesheet" href="./assets/css/main.css?v=14">
+  <link rel="stylesheet" href="./assets/css/main.css?v=15">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -280,8 +280,8 @@
                   <div class="crm-form">
                     <div class="crm-form-title"><div><small>Контакты</small><b>Новый контакт</b></div></div>
                     <div class="crm-fields">
-                      <label class="field-wide"><span>ФИО</span><i>Александр Мальцев</i></label>
-                      <label class="field-wide"><span>Адрес</span><i>ул. Всеволода Вишневского</i></label>
+                      <label class="field-wide"><span>ФИО</span><i><span class="typed-text typed-name">Александр Мальцев</span></i></label>
+                      <label class="field-wide"><span>Адрес</span><i><span class="typed-text typed-address">ул. Всеволода Вишневского</span></i></label>
                       <label><span>Дом</span><i class="is-placeholder">Не указано</i></label>
                       <label><span>Квартира</span><i class="is-placeholder">Не указано</i></label>
                       <label class="field-wide"><span>Номер телефона</span><i>+7 926 921-11-64</i></label>
@@ -297,9 +297,9 @@
                   <time>Сегодня</time>
                   <p class="user-message">/start</p>
                   <p class="bot-message">Добро пожаловать!<br>Выберите действие:</p>
-                  <div class="telegram-actions"><span>Мой профиль</span><span>Статистика</span><span>Записаться на смену</span><span>Записать контакт</span><span>Связь со штабом</span></div>
+                  <div class="telegram-actions"><span>Мой профиль</span><span>Статистика</span><span>Записаться на смену</span><span>Новый контакт</span><span>Связь со штабом</span></div>
                 </div>
-                <div class="telegram-input">Написать сообщение… <span>➤</span></div>
+                <div class="telegram-input"><span class="telegram-input-copy"><span class="telegram-placeholder">Написать сообщение…</span><span class="telegram-command">/start</span></span><span aria-hidden="true">➤</span></div>
               </div>
               <div class="crm-flow" aria-hidden="true"><span>Telegram</span><i>→</i><span>Скаут</span><i>→</i><span>Веб-приложение</span><i>→</i><span>CRM</span></div>
             </div>
@@ -404,7 +404,7 @@
           <p>Аналитическое и организационное сопровождение деятельности депутата, работа с обращениями граждан, подготовка депутатских запросов и справочных материалов, участие в разработке региональных и федеральных законопроектов, взаимодействие с органами государственной власти и подведомственными организациями.</p>
         </article>
         <article class="career-row territory reveal">
-          <div><p class="period">Ноябрь 2023 — июнь 2025 · Москва</p><h2>ООО «Территория Рязанская»</h2><p class="career-role">Управляющий</p></div>
+          <div><p class="period">Ноябрь 2023 — июнь 2025 · Москва</p><h2>Ресторан «Территория»</h2><p class="career-company">ООО «Территория Рязанская»</p><p class="career-role">Управляющий</p></div>
           <div>
             <div class="career-achievement"><strong>+30%</strong><p>к выручке за период управления благодаря пересмотру работы заведения, работе с поставщиками, обновлению меню и запуску новых форматов мероприятий.</p></div>
             <div class="career-points">
@@ -422,17 +422,18 @@
       <div class="container section-grid">
         <div class="section-heading reveal"><span class="section-number">06</span><h2 id="education-title">Образование</h2></div>
         <div class="education-content reveal">
-          <div class="education-list">
-            <article><time>2025</time><div><h3>Военный университет имени князя Александра Невского Министерства обороны Российской Федерации</h3><p>Юриспруденция</p></div></article>
+          <div class="education-tabs" role="tablist" aria-label="Разделы образования">
+            <button class="education-tab is-active" id="education-tab-main" type="button" role="tab" aria-selected="true" aria-controls="education-main" data-education-tab="education-main">Высшее образование</button>
+            <button class="education-tab" id="education-tab-courses" type="button" role="tab" aria-selected="false" aria-controls="courses" data-education-tab="courses" tabindex="-1">Курсы</button>
+          </div>
+
+          <div class="education-panel education-list is-active" id="education-main" role="tabpanel" aria-labelledby="education-tab-main">
+            <article><time>2025</time><div><h3>Военный университет имени князя Александра Невского Министерства обороны Российской Федерации</h3><p>Бакалавриат · Юриспруденция</p></div></article>
             <article><time>2025–2028</time><div><h3>Российская академия народного хозяйства и государственной службы при Президенте Российской Федерации</h3><p>Магистратура · Государственное и муниципальное управление</p><p>Профиль «Цифровое государство»</p><span class="study-format">Заочно</span></div></article>
             <article><time>2026–2028</time><div><h3>Университет «Синергия»</h3><p>Магистратура · Менеджмент</p><p>Профиль «Digital-маркетинг»</p><span class="study-format">Онлайн</span></div></article>
           </div>
 
-          <div class="courses-block" id="courses">
-            <div class="courses-heading">
-              <p>Дополнительное образование</p>
-              <h3>Курсы</h3>
-            </div>
+          <div class="education-panel courses-block" id="courses" role="tabpanel" aria-labelledby="education-tab-courses" hidden>
             <div class="courses-list">
               <article>
                 <div class="course-meta"><time>2026</time><span class="course-status course-status-complete">Завершён</span></div>
@@ -477,6 +478,6 @@
     <div class="container"><span>Александр Мальцев</span><span>© <span data-year>2026</span></span></div>
   </footer>
 
-  <script src="./assets/js/main.js?v=2" defer></script>
+  <script src="./assets/js/main.js?v=3" defer></script>
 </body>
 </html>
