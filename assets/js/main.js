@@ -53,8 +53,14 @@ if (educationTabs.length) {
     if (moveFocus) activeTab.focus();
   };
 
+  const activateEducationTabAndHash = (activeTab, moveFocus = false) => {
+    activateEducationTab(activeTab, moveFocus);
+    const nextHash = activeTab.dataset.educationTab === 'courses' ? '#courses' : '#education';
+    window.history.replaceState(null, '', nextHash);
+  };
+
   educationTabs.forEach((tab, index) => {
-    tab.addEventListener('click', () => activateEducationTab(tab));
+    tab.addEventListener('click', () => activateEducationTabAndHash(tab));
     tab.addEventListener('keydown', (event) => {
       let nextIndex = index;
 
@@ -65,7 +71,7 @@ if (educationTabs.length) {
       if (nextIndex === index) return;
 
       event.preventDefault();
-      activateEducationTab(educationTabs[nextIndex], true);
+      activateEducationTabAndHash(educationTabs[nextIndex], true);
     });
   });
 
