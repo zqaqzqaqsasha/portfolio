@@ -85,21 +85,66 @@ if (educationTabs.length) {
   window.addEventListener('hashchange', activateEducationFromHash);
 }
 
-const crmSequence = document.querySelector('.crm-composition');
+const projectDialog = document.querySelector('#project-dialog');
+const projectDialogContent = projectDialog?.querySelector('[data-project-dialog-content]');
+const projectDialogClose = projectDialog?.querySelector('[data-project-close]');
+let projectDialogTrigger = null;
+let projectScrollPosition = 0;
 
-if (crmSequence && !prefersReducedMotion && 'IntersectionObserver' in window) {
-  crmSequence.classList.add('has-sequence');
+const startCrmSequence = (root) => {
+  const sequence = root.querySelector('.crm-composition');
+  if (!sequence || prefersReducedMotion) return;
 
-  const crmObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-animated');
-        crmObserver.unobserve(entry.target);
-      }
+  sequence.classList.add('has-sequence');
+  requestAnimationFrame(() => requestAnimationFrame(() => sequence.classList.add('is-animated')));
+};
+
+const unlockProjectPage = () => {
+  document.body.classList.remove('project-modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, projectScrollPosition);
+};
+
+const closeProjectDialog = () => {
+  if (projectDialog?.open) projectDialog.close();
+};
+
+if (projectDialog && projectDialogContent && projectDialogClose) {
+  document.querySelectorAll('[data-project-open]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const source = document.querySelector(`[data-project-detail="${button.dataset.projectOpen}"]`);
+      if (!source) return;
+
+      const project = source.cloneNode(true);
+      const title = project.querySelector('h3');
+      if (title) title.id = 'project-dialog-title';
+      project.classList.add('project-modal-case');
+      projectDialogContent.replaceChildren(project);
+      projectDialogContent.scrollTop = 0;
+
+      projectDialogTrigger = button;
+      projectScrollPosition = window.scrollY;
+      document.body.style.top = `-${projectScrollPosition}px`;
+      document.body.classList.add('project-modal-open');
+      projectDialog.showModal();
+      startCrmSequence(projectDialogContent);
+      projectDialogClose.focus();
     });
-  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.28 });
+  });
 
-  crmObserver.observe(crmSequence);
+  projectDialogClose.addEventListener('click', closeProjectDialog);
+  projectDialog.addEventListener('click', (event) => {
+    if (event.target === projectDialog) closeProjectDialog();
+  });
+  projectDialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeProjectDialog();
+  });
+  projectDialog.addEventListener('close', () => {
+    unlockProjectPage();
+    projectDialogContent.replaceChildren();
+    requestAnimationFrame(() => projectDialogTrigger?.focus({ preventScroll: true }));
+  });
 }
 
 const revealElements = document.querySelectorAll('.reveal');
