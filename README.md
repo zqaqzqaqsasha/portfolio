@@ -2,7 +2,7 @@
 
 Статический одностраничный сайт-портфолио, подготовленный для публикации на GitHub Pages. Проект не требует backend, CMS, сборщика или внешних JavaScript-библиотек.
 
-Публичный адрес: [https://zqaqzqaqsasha.github.io/](https://zqaqzqaqsasha.github.io/)
+Публичный адрес: [https://zqaqzqaqsasha.github.io/portfolio/](https://zqaqzqaqsasha.github.io/portfolio/)
 
 ## Структура
 
@@ -55,7 +55,7 @@ OG-карточка находится в `assets/images/og-image.png` и име
 
 ## Публичный адрес
 
-Сайт публикуется из корня ветки `main` репозитория `zqaqzqaqsasha/zqaqzqaqsasha.github.io` и доступен по адресу [https://zqaqzqaqsasha.github.io/](https://zqaqzqaqsasha.github.io/). Canonical URL, Open Graph, Twitter Card, `robots.txt` и `sitemap.xml` уже настроены на этот адрес.
+Сайт публикуется из корня ветки `main` репозитория `zqaqzqaqsasha/portfolio` и доступен по адресу [https://zqaqzqaqsasha.github.io/portfolio/](https://zqaqzqaqsasha.github.io/portfolio/). Canonical URL, Open Graph, Twitter Card, `robots.txt` и `sitemap.xml` уже настроены на этот адрес.
 
 ## Публикация на GitHub Pages
 

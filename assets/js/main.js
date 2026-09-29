@@ -31,6 +31,175 @@ document.querySelectorAll('[data-year]').forEach((element) => {
 });
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const educationTabs = [...document.querySelectorAll('[data-education-tab]')];
+
+if (educationTabs.length) {
+  const activateEducationTab = (activeTab, moveFocus = false) => {
+    educationTabs.forEach((tab) => {
+      const isActive = tab === activeTab;
+      const panel = document.getElementById(tab.dataset.educationTab);
+
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.tabIndex = isActive ? 0 : -1;
+
+      if (panel) {
+        panel.hidden = !isActive;
+        panel.classList.toggle('is-active', isActive);
+      }
+    });
+
+    if (moveFocus) activeTab.focus();
+  };
+
+  const activateEducationTabAndHash = (activeTab, moveFocus = false) => {
+    activateEducationTab(activeTab, moveFocus);
+    const nextHash = activeTab.dataset.educationTab === 'courses' ? '#courses' : '#education';
+    window.history.replaceState(null, '', nextHash);
+  };
+
+  educationTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activateEducationTabAndHash(tab));
+    tab.addEventListener('keydown', (event) => {
+      let nextIndex = index;
+
+      if (event.key === 'ArrowRight') nextIndex = (index + 1) % educationTabs.length;
+      if (event.key === 'ArrowLeft') nextIndex = (index - 1 + educationTabs.length) % educationTabs.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = educationTabs.length - 1;
+      if (nextIndex === index) return;
+
+      event.preventDefault();
+      activateEducationTabAndHash(educationTabs[nextIndex], true);
+    });
+  });
+
+  const activateEducationFromHash = () => {
+    const targetPanel = window.location.hash === '#courses' ? 'courses' : 'education-main';
+    const targetTab = educationTabs.find((tab) => tab.dataset.educationTab === targetPanel);
+    if (targetTab) activateEducationTab(targetTab);
+  };
+
+  activateEducationFromHash();
+  window.addEventListener('hashchange', activateEducationFromHash);
+}
+
+const projectDialog = document.querySelector('#project-dialog');
+const projectDialogContent = projectDialog?.querySelector('[data-project-dialog-content]');
+const projectDialogClose = projectDialog?.querySelector('[data-project-close]');
+let projectDialogTrigger = null;
+let projectScrollPosition = 0;
+
+const startCrmSequence = (root) => {
+  const sequence = root.querySelector('.crm-composition');
+  if (!sequence || prefersReducedMotion) return;
+
+  sequence.classList.add('has-sequence');
+  requestAnimationFrame(() => requestAnimationFrame(() => sequence.classList.add('is-animated')));
+};
+
+const unlockProjectPage = () => {
+  document.body.classList.remove('project-modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, projectScrollPosition);
+};
+
+const closeProjectDialog = () => {
+  if (projectDialog?.open) projectDialog.close();
+};
+
+if (projectDialog && projectDialogContent && projectDialogClose) {
+  document.querySelectorAll('[data-project-open]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const source = document.querySelector(`[data-project-detail="${button.dataset.projectOpen}"]`);
+      if (!source) return;
+
+      const project = source.cloneNode(true);
+      const title = project.querySelector('h3');
+      if (title) title.id = 'project-dialog-title';
+      project.classList.add('project-modal-case');
+      projectDialogContent.replaceChildren(project);
+      projectDialogContent.scrollTop = 0;
+
+      projectDialogTrigger = button;
+      projectScrollPosition = window.scrollY;
+      document.body.style.top = `-${projectScrollPosition}px`;
+      document.body.classList.add('project-modal-open');
+      projectDialog.showModal();
+      startCrmSequence(projectDialogContent);
+      projectDialogClose.focus();
+    });
+  });
+
+  projectDialogClose.addEventListener('click', closeProjectDialog);
+  projectDialog.addEventListener('click', (event) => {
+    if (event.target === projectDialog) closeProjectDialog();
+  });
+  projectDialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeProjectDialog();
+  });
+  projectDialog.addEventListener('close', () => {
+    unlockProjectPage();
+    projectDialogContent.replaceChildren();
+    requestAnimationFrame(() => projectDialogTrigger?.focus({ preventScroll: true }));
+  });
+}
+
+const experienceDialog = document.querySelector('#experience-dialog');
+const experienceDialogContent = experienceDialog?.querySelector('[data-experience-dialog-content]');
+const experienceDialogClose = experienceDialog?.querySelector('[data-experience-close]');
+let experienceDialogTrigger = null;
+let experienceScrollPosition = 0;
+
+const unlockExperiencePage = () => {
+  document.body.classList.remove('project-modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, experienceScrollPosition);
+};
+
+const closeExperienceDialog = () => {
+  if (experienceDialog?.open) experienceDialog.close();
+};
+
+if (experienceDialog && experienceDialogContent && experienceDialogClose) {
+  document.querySelectorAll('[data-experience-open]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const source = document.querySelector(`[data-experience-detail="${button.dataset.experienceOpen}"]`);
+      if (!source) return;
+
+      const detail = source.cloneNode(true);
+      const title = detail.querySelector('h3');
+      if (title) title.id = 'experience-dialog-title';
+
+      experienceDialogContent.replaceChildren(detail);
+      experienceDialogContent.scrollTop = 0;
+      experienceDialogTrigger = button;
+      experienceScrollPosition = window.scrollY;
+      document.body.style.top = `-${experienceScrollPosition}px`;
+      document.body.classList.add('project-modal-open');
+      experienceDialog.showModal();
+
+      experienceDialogClose.focus();
+    });
+  });
+
+  experienceDialogClose.addEventListener('click', closeExperienceDialog);
+  experienceDialog.addEventListener('click', (event) => {
+    if (event.target === experienceDialog) closeExperienceDialog();
+  });
+  experienceDialog.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeExperienceDialog();
+  });
+  experienceDialog.addEventListener('close', () => {
+    unlockExperiencePage();
+    experienceDialogContent.replaceChildren();
+    requestAnimationFrame(() => experienceDialogTrigger?.focus({ preventScroll: true }));
+  });
+}
+
 const revealElements = document.querySelectorAll('.reveal');
 
 if (prefersReducedMotion || !('IntersectionObserver' in window)) {
