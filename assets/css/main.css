@@ -464,6 +464,11 @@ body.project-modal-open { position: fixed; right: 0; left: 0; width: 100%; overf
 .experience-detail-points p { margin-top: 0.55rem; color: var(--color-muted); font-size: 0.83rem; line-height: 1.55; }
 .experience-detail-points a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 0.18em; }
 .experience-note { margin-top: 2rem; padding: 1.2rem 1.3rem; color: #3d4656; background: #edf2ff; border-left: 3px solid var(--color-accent); font-size: 0.88rem; line-height: 1.6; }
+.experience-initiatives { display: grid; gap: 1rem; margin-top: 2rem; }
+.experience-initiative { padding: 1.35rem; background: #f7f8fa; border: 1px solid var(--color-border); border-radius: 0.7rem; }
+.experience-initiative h4 { font-size: 1.05rem; }
+.experience-initiative p { margin-top: 0.7rem; color: #4b535f; font-size: 0.88rem; line-height: 1.6; }
+.experience-initiative-compact { border-left: 3px solid var(--color-accent); }
 .experience-achievement { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--color-border); }.experience-achievement strong { color: var(--color-accent); font-size: clamp(3.75rem, 6vw, 5.75rem); line-height: 0.85; letter-spacing: -0.07em; }.experience-achievement p { color: #454b55; }
 
 
