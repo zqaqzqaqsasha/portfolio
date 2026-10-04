@@ -110,12 +110,35 @@ const closeProjectDialog = () => {
 };
 
 if (projectDialog && projectDialogContent && projectDialogClose) {
+  projectDialogContent.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-video-src]');
+    if (!button || !projectDialogContent.contains(button)) return;
+
+    const player = button.closest('[data-video-player]');
+    const frame = player?.querySelector('iframe');
+    const originalLink = player?.querySelector('.video-original-link');
+    if (!frame || !originalLink) return;
+
+    player.querySelectorAll('[data-video-src]').forEach((option) => {
+      option.setAttribute('aria-pressed', String(option === button));
+    });
+    frame.title = button.dataset.videoTitle;
+    originalLink.href = button.dataset.videoHref;
+    if (frame.src !== button.dataset.videoSrc) {
+      player.classList.add('is-loading');
+      frame.src = button.dataset.videoSrc;
+    }
+  });
+
   document.querySelectorAll('[data-project-open]').forEach((button) => {
     button.addEventListener('click', () => {
       const source = document.querySelector(`[data-project-detail="${button.dataset.projectOpen}"]`);
       if (!source) return;
 
       const project = source.cloneNode(true);
+      project.querySelectorAll('[data-video-player] iframe').forEach((frame) => {
+        frame.addEventListener('load', () => frame.closest('[data-video-player]')?.classList.remove('is-loading'));
+      });
       const title = project.querySelector('h3');
       if (title) title.id = 'project-dialog-title';
       project.classList.add('project-modal-case');
