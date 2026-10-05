@@ -122,7 +122,9 @@ p { text-wrap: pretty; }
 .hero h1 { font-size: clamp(3.5rem, 7vw, 6.75rem); line-height: 0.86; letter-spacing: -0.075em; }
 .hero-role { margin-top: 2rem; font-size: clamp(1.45rem, 2.5vw, 2.35rem); line-height: 1.12; letter-spacing: -0.045em; }
 .hero-lead { max-width: 43rem; margin-top: 1.75rem; color: var(--color-muted); font-size: clamp(1.03rem, 1.35vw, 1.18rem); line-height: 1.65; }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 2.5rem; }
+.hero-directions { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.35rem; list-style: none; }
+.hero-directions li { padding: 0.42rem 0.68rem; color: #3f4858; background: #f5f7fb; border: 1px solid var(--color-border); border-radius: 999px; font-size: 0.72rem; font-weight: 650; letter-spacing: 0.015em; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 2rem; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 3.25rem; padding: 0.75rem 1.2rem; border: 1px solid transparent; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 600; transition: color 180ms ease, background 180ms ease, border-color 180ms ease, transform 180ms ease; }
 .button:hover { transform: translateY(-2px); }
 .button-primary { gap: 1.25rem; color: #fff; background: var(--color-accent); }
@@ -262,6 +264,7 @@ p { text-wrap: pretty; }
 .live-tracks > span { position: absolute; top: -0.25rem; bottom: -0.15rem; left: 44%; width: 1px; background: #eb9397; }
 
 .project-media-aside { min-width: 0; align-self: start; }
+.project-media-context { max-width: 35rem; margin-bottom: 1rem; color: var(--color-muted); font-size: 0.88rem; line-height: 1.6; }
 
 /* Quiet, image-led previews for the two video cases. */
 .project-card-preview .short-production { inset-block: 1rem; }
@@ -685,6 +688,8 @@ body.project-modal-open { position: fixed; right: 0; left: 0; width: 100%; overf
   .eyebrow { margin-bottom: 1.5rem; font-size: 0.68rem; }
   .hero h1 { font-size: clamp(3.3rem, 18vw, 5.2rem); }
   .hero-role { font-size: 1.45rem; }
+  .hero-directions { gap: 0.4rem; margin-top: 1.1rem; }
+  .hero-directions li { padding: 0.38rem 0.58rem; font-size: 0.68rem; }
   .hero-actions { align-items: stretch; }
   .button { flex: 1 1 auto; }
   .text-link { width: 100%; padding-left: 0; }
